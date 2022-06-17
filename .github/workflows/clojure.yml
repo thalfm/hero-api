@@ -17,6 +17,8 @@ jobs:
       env:
         MY_DATOMIC_USERNAME: ${{ secrets.MY_DATOMIC_USERNAME }}
         MY_DATOMIC_PASSWORD: ${{ secrets.MY_DATOMIC_PASSWORD}}
-      run: lein deps
+      run: | 
+            echo "This is a secret value: $MY_DATOMIC_USERNAME"
+            echo "This is a secret value: $MY_DATOMIC_PASSWORD"
     - name: Run tests
       run: lein test
