@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install dependencies
+      env:
+        MY_DATOMIC_USERNAME: ${{ secrets.MY_DATOMIC_USERNAME }}
+        MY_DATOMIC_PASSWORD: ${{ secrets.MY_DATOMIC_PASSWORD}}
       run: lein deps
     - name: Run tests
       run: lein test
