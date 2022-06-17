@@ -15,8 +15,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install dependencies
       env:
-        MY_DATOMIC_USERNAME: ${{ secrets.MY_DATOMIC_USERNAME }}
-        MY_DATOMIC_PASSWORD: ${{ secrets.MY_DATOMIC_PASSWORD}}
+        MY_DATOMIC_USERNAME: ${{ secrets.MY_DATOMIC_USERNAME.MY_DATOMIC_USERNAME }}
+        MY_DATOMIC_PASSWORD: ${{ secrets.MY_DATOMIC_PASSWORD.MY_DATOMIC_PASSWORD}}
       run: | 
             echo "This is a secret value: $MY_DATOMIC_USERNAME"
             echo "This is a secret value: $MY_DATOMIC_PASSWORD"
