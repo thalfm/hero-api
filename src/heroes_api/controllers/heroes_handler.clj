@@ -4,9 +4,9 @@
             [heroes-api.domain.entities.biography :as entity.biography]))
 
 (defn create!
-  [store {:keys [name universe full-name alter-egos alias]}]
-  (let [biography (entity.biography/new-biography full-name alter-egos alias)
-        hero (entity.hero/new-hero name universe biography)]
+  [store {:keys [name full-name alias group-affiliation relatives]}]
+  (let [biography (entity.biography/new-biography full-name alias)
+        hero (entity.hero/new-hero name biography group-affiliation relatives)]
     (repo/create! store hero)
     {:status 201 :body {:message "Success created" :hero hero}}))
 
@@ -15,9 +15,9 @@
   {:status 200 :body (repo/find-by-id! store uuid)})
 
 (defn update!
-  [store {:keys [uuid-hero name universe full-name alter-egos alias]}]
-  (let [biography (entity.biography/new-biography full-name alter-egos alias)
-        hero (entity.hero/new-hero uuid-hero name universe biography)]
+  [store {:keys [uuid-hero name full-name alias group-affiliation relatives]}]
+  (let [biography (entity.biography/new-biography full-name  alias)
+        hero (entity.hero/new-hero uuid-hero name biography group-affiliation relatives)]
     (repo/update! store uuid-hero hero)
     {:status 200 :body {:message "Success updated" :hero hero}}))
 

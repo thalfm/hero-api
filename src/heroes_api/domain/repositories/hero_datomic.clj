@@ -2,7 +2,7 @@
   (:require [datomic.api :as d]
             [heroes-api.data.datomic.schema.hero :as schema]))
 
-(defn all! [database, {:keys [id]}]
+(defn all! [database, {:keys [id group-affiliation]}]
   (let [query {:query '{:find  [[(pull ?hero [*]) ...]]
                         :in    [$]
                         :where [[?hero :hero/uuid _]]}
@@ -12,7 +12,12 @@
                        id (->
                             (update-in [:query :in] conj '?id)
                             (update-in [:query :where] conj '[?hero :hero/uuid ?id])
-                            (update-in [:args] conj id)))]
+                            (update-in [:args] conj id))
+                       group-affiliation (->
+                                           (update-in [:query :in] conj '?group-affiliation)
+                                           (update-in [:query :where] conj '[?hero :connections/group-affiliation ?group-affiliation])
+                                           (update-in [:args] conj group-affiliation))
+                          )]
     (mapv schema/to->entity (d/query condition))))
 
 (defn find-by-id!
@@ -24,7 +29,7 @@
 
 (defn create!
   [database hero]
-  (d/transact database [(schema/hero->schema hero)]))
+  (println (d/transact database [(schema/hero->schema hero)])))
 
 (defn update!
   [database id hero]

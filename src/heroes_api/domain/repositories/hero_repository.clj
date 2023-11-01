@@ -5,7 +5,7 @@
 
 (defn- select-db
   [db & _]
-  (if (not= (class db) Atom) :datomic :in-memory))
+  (if-not (= (class db) Atom) :datomic :in-memory))
 
 (defmulti all! select-db)
 (defmulti find-by-id! select-db)
