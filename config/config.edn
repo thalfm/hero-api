@@ -1,1 +1,2 @@
-{:db-uri "datomic:dev://localhost:4334/heroes?password="}
+;You need to change this db_uri to localhost when you are running the application locally outside container.
+{:db-uri "datomic:dev://datomic:4334/heroes?password="}
