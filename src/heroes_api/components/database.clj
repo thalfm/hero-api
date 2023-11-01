@@ -30,10 +30,9 @@
 (defn new-database-datomic
   []
   (println "Start datomic connection")
-  (->>
-    (:datomic-secret-password env)
-    (str (:db-uri env))
-    ->DatabaseDatomic))
+  (->> (:datomic-secret-password env)
+       (str (:db-uri env))
+       ->DatabaseDatomic))
 
 (defn new-database-in-memory []
   (println "Start In Memory connection")
