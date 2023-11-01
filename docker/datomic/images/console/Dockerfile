@@ -1,16 +1,12 @@
-FROM clojure:lein-2.6.1-alpine
+FROM clojure:temurin-21-lein-alpine
 
-ARG DATOMIC_LOGIN
-ARG DATOMIC_PASSWORD
-ARG DATOMIC_VERSION
-
-ENV DATOMIC_HOME /opt/datomic-pro-$DATOMIC_VERSION
+ENV DATOMIC_HOME /opt/datomic-pro-1.0.7021
 
 RUN apk add --no-cache unzip curl
 
-RUN curl -u $DATOMIC_LOGIN:$DATOMIC_PASSWORD -SL https://my.datomic.com/repo/com/datomic/datomic-pro/$DATOMIC_VERSION/datomic-pro-$DATOMIC_VERSION.zip -o /tmp/datomic.zip \
-&& unzip /tmp/datomic.zip -d /opt \
-&& rm -f /tmp/datomic.zip
+RUN curl https://datomic-pro-downloads.s3.amazonaws.com/1.0.7021/datomic-pro-1.0.7021.zip -o /tmp/datomic.zip \
+    && unzip /tmp/datomic.zip -d /opt \
+    && rm -f /tmp/datomic.zip
 
 WORKDIR $DATOMIC_HOME
 
